@@ -46,8 +46,8 @@ public class SettingsController {
         fontSizeText.setText("Font Size");
         fontSizeField.setPromptText("Current Font Size: " + ComposeApp.getPreferences().getFontSize());
 
-        tabSizeText.setText("Tab Size");
-        tabSizeField.setPromptText("Current Tab Size: " + ComposeApp.getPreferences().getTabSize());
+//        tabSizeText.setText("Tab Size");
+//        tabSizeField.setPromptText("Current Tab Size: " + ComposeApp.getPreferences().getTabSize());
 
         wrapTextSelector.setText("Wrap Text");
         wrapTextSelector.setSelected(ComposeApp.getPreferences().isWrapText());
