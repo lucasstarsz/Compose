@@ -60,8 +60,8 @@ public class MainController {
                 pasteMenuItem, new KeyCodeCombination(KeyCode.V, KeyCodeCombination.SHORTCUT_DOWN),
                 selectAllMenuItem, new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN),
                 shiftLeftMenuItem, new KeyCodeCombination(KeyCode.TAB, KeyCombination.SHIFT_DOWN),
-                shiftRightMenuItem, new KeyCodeCombination(KeyCode.TAB, KeyCombination.SHORTCUT_DOWN),
-                findMenuItem, new KeyCodeCombination(KeyCode.F, KeyCodeCombination.SHORTCUT_DOWN)
+                shiftRightMenuItem, new KeyCodeCombination(KeyCode.TAB, KeyCombination.SHORTCUT_DOWN)
+//                findMenuItem, new KeyCodeCombination(KeyCode.F, KeyCodeCombination.SHORTCUT_DOWN)
         );
 
         Map<MenuItem, KeyCombination> fileMenuMnemonics = Map.of(

@@ -29,7 +29,7 @@
                 <MenuItem fx:id="shiftLeftMenuItem" text="Shift ←" onAction="#shiftLeft"/>
                 <MenuItem fx:id="shiftRightMenuItem" text="Shift →" onAction="#shiftRight"/>
             </Menu>
-            <MenuItem fx:id="findMenuItem" text="Find" onAction="#find"/>
+<!--            <MenuItem fx:id="findMenuItem" text="Find" onAction="#find"/>-->
         </Menu>
     </MenuBar>
     <FileTabPane fx:id="fileTabs" VBox.vgrow="ALWAYS">
