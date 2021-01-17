@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.lucasstarsz.composeapp.core.controllers.SettingsController" spacing="25">
+    <padding>
+        <Insets topRightBottomLeft="20"/>
+    </padding>
+    <ComboBox fx:id="themeSelector" onAction="#setTheme">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Light"/>
+                <String fx:value="Fresh"/>
+                <String fx:value="Darc"/>
+            </FXCollections>
+        </items>
+    </ComboBox>
+    <ComboBox fx:id="fontSelector" onAction="#setFont"/>
+    <GridPane hgap="10" vgap="10">
+        <Label GridPane.rowIndex="0" GridPane.columnIndex="0" fx:id="fontSizeText"/>
+        <TextField GridPane.rowIndex="0" GridPane.columnIndex="1" fx:id="fontSizeField" onAction="#setFontSize"/>
+        <!--        <Label GridPane.rowIndex="1" GridPane.columnIndex="0" fx:id="tabSizeText"/>-->
+        <!--        <TextField GridPane.rowIndex="1" GridPane.columnIndex="1" fx:id="tabSizeField" onAction="#setTabSize"/>-->
+    </GridPane>
+    <CheckBox fx:id="wrapTextSelector" onAction="#setWrapped"/>
+</VBox>

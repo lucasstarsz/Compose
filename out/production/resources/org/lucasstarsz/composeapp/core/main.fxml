@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<VBox fx:id="mainContainer" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.lucasstarsz.composeapp.core.controllers.MainController">
+    <MenuBar VBox.vgrow="ALWAYS">
+        <Menu text="File">
+            <MenuItem fx:id="newFileMenuItem" text="_New" onAction="#openNewFile"/>
+            <MenuItem fx:id="openMenuItem" text="_Open..."/>
+            <MenuItem fx:id="saveMenuItem" text="_Save"/>
+            <MenuItem fx:id="saveAsMenuItem" text="Save as..."/>
+            <MenuItem fx:id="settingsMenuItem" text="Settings"/>
+        </Menu>
+        <Menu text="Edit">
+            <MenuItem fx:id="undoMenuItem" text="Undo"/>
+            <MenuItem fx:id="redoMenuItem" text="Redo"/>
+            <MenuItem fx:id="copyMenuItem" text="Copy"/>
+            <MenuItem fx:id="cutMenuItem" text="Cut"/>
+            <MenuItem fx:id="pasteMenuItem" text="Paste"/>
+            <MenuItem fx:id="selectAllMenuItem" text="Select All"/>
+            <Menu text="Indents">
+                <MenuItem fx:id="shiftLeftMenuItem" text="Shift ←"/>
+                <MenuItem fx:id="shiftRightMenuItem" text="Shift →"/>
+            </Menu>
+            <MenuItem fx:id="findMenuItem" text="Find"/>
+        </Menu>
+    </MenuBar>
+    <TabPane fx:id="fileTabs" VBox.vgrow="ALWAYS">
+        <Tab text="+" onSelectionChanged="#openNewFile" closable="false">
+            <tooltip>
+                <Tooltip text="Create new file"/>
+            </tooltip>
+        </Tab>
+    </TabPane>
+</VBox>

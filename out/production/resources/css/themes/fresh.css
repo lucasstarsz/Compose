@@ -1,0 +1,97 @@
+.root {
+    -fx-base: #f5f5f5;
+    -fx-accent: #0099c0;
+
+    -fx-focus-color: #0099c0;
+    -fx-faint-focus-color: #2c9fc4;
+
+    -fx-default-button: #f5f5f5;
+}
+
+/* Text Areas */
+
+ComposeArea, .text-area .content {
+    -fx-background-color: -fx-base;
+}
+
+ComposeArea .text {
+    -fx-fill: #000000;
+}
+
+ComposeArea .caret {
+    -fx-stroke: #000000;
+}
+
+.text-area {
+    -fx-text-fill: #000000;
+}
+
+/* Text Line Numbers */
+
+.lineno, .lineno-rect {
+    -fx-fill: #0099c0;
+    -fx-background-color: #0099c0;
+    -fx-stroke: #0084a4;
+    -fx-text-fill: black;
+}
+
+/* Dialogs */
+
+.dialog-pane {
+    -fx-background-color: -fx-base;
+}
+
+/* Menus */
+
+.menu-bar {
+    -fx-background-color: -fx-accent;
+    -fx-border-color: #0084a4;
+}
+
+.menu-bar .menu {
+    -fx-background-color: -fx-accent;
+}
+
+.menu-bar .menu:hover {
+    -fx-background-color: -fx-base;
+}
+
+.menu-item, .menu-button, .menu-bar .menu .menu {
+    -fx-background-color: -fx-base;
+}
+
+.menu-item:hover, .menu-button:hover, .menu-bar .menu .menu:hover {
+    -fx-background-color: -fx-accent;
+}
+
+.menu .label {
+    -fx-text-fill: black;
+}
+
+/* Combo Boxes */
+
+.combo-box .list-view .list-cell {
+    -fx-background-color: #f5f5f5;
+    -fx-text-fill: black;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #0099c0;
+}
+
+/* Scrolling */
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #e0e0e0;
+    -fx-border-style: none;
+}
+
+.scroll-bar .thumb:hover, .scroll-bar .thumb:pressed {
+    -fx-background-color: #bababa;
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}

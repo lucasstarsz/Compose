@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import org.lucasstarsz.composeapp.nodes.FileTabPane?>
+<VBox fx:id="mainContainer" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.lucasstarsz.composeapp.core.controllers.MainController">
+    <MenuBar VBox.vgrow="ALWAYS">
+        <Menu text="File">
+            <MenuItem fx:id="newFileMenuItem" text="_New" onAction="#openNewFile"/>
+            <MenuItem fx:id="openMenuItem" text="_Open..." onAction="#openFileFromChooser"/>
+            <MenuItem fx:id="saveMenuItem" text="_Save" onAction="#saveFile"/>
+            <MenuItem fx:id="saveAsMenuItem" text="Save as..." onAction="#saveFileAs"/>
+            <Menu text="Close...">
+                <MenuItem fx:id="closeCurrentMenuItem" text="Close Current File" onAction="#closeCurrentFile"/>
+                <MenuItem fx:id="closeAllMenuItem" text="Close All Files" onAction="#closeAllFiles"/>
+                <MenuItem fx:id="closeComposeMenuItem" text="Close Entire Editor" onAction="#closeEditor"/>
+            </Menu>
+            <MenuItem fx:id="settingsMenuItem" text="Settings" onAction="#openSettings"/>
+        </Menu>
+        <Menu text="Edit">
+            <MenuItem fx:id="undoMenuItem" text="Undo" onAction="#undo"/>
+            <MenuItem fx:id="redoMenuItem" text="Redo" onAction="#redo"/>
+            <MenuItem fx:id="copyMenuItem" text="Copy" onAction="#copy"/>
+            <MenuItem fx:id="cutMenuItem" text="Cut" onAction="#cut"/>
+            <MenuItem fx:id="pasteMenuItem" text="Paste" onAction="#paste"/>
+            <MenuItem fx:id="selectAllMenuItem" text="Select All" onAction="#selectAll"/>
+            <Menu text="Indents">
+                <MenuItem fx:id="shiftLeftMenuItem" text="Shift ←" onAction="#shiftLeft"/>
+                <MenuItem fx:id="shiftRightMenuItem" text="Shift →" onAction="#shiftRight"/>
+            </Menu>
+            <MenuItem fx:id="findMenuItem" text="Find" onAction="#find"/>
+        </Menu>
+    </MenuBar>
+    <FileTabPane fx:id="fileTabs" VBox.vgrow="ALWAYS">
+        <Tab text="+" onSelectionChanged="#openNewFile" closable="false">
+            <tooltip>
+                <Tooltip text="Create new file"/>
+            </tooltip>
+        </Tab>
+    </FileTabPane>
+</VBox>

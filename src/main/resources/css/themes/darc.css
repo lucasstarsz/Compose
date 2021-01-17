@@ -1,0 +1,118 @@
+.root {
+    -fx-base: #3c3f41;
+    -fx-accent: #0094bd;
+
+    -fx-focus-color: -fx-accent;
+    -fx-faint-focus-color: #36587f;
+
+    -fx-default-button: #4c5052;
+}
+
+/* Tabs */
+
+.tab {
+    -fx-background-color: -fx-base;
+    -fx-border-color: #2b2b2b;
+}
+
+.tab:selected {
+    -fx-background-color: #4e5254;
+}
+
+.tab:hover {
+    -fx-background-color: #2b2b2b;
+}
+
+.tab:selected:hover {
+    -fx-background-color: #333537;
+}
+
+.tab-header-background {
+    -fx-background-color: -fx-base;
+    -fx-border-radius: 100px;
+}
+
+.tab-header-background:selected {
+    -fx-background-color: derive(-fx-base, 50%);
+}
+
+/* Text Fields */
+.text-field {
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: #d9d9d9;
+}
+
+/* Text Areas */
+
+ComposeArea, .text-area .content {
+    -fx-background-color: #2b2b2b;
+}
+
+ComposeArea .text {
+    -fx-fill: #d9d9d9;
+}
+
+ComposeArea .caret {
+    -fx-stroke: white;
+}
+
+.text-area {
+    -fx-text-fill: #d9d9d9;
+}
+
+/* Text Line Numbers */
+
+.lineno, .lineno-rect {
+    -fx-fill: #3c3f41;
+    -fx-background-color: #3c3f41;
+    -fx-text-fill: #606366;
+}
+
+/* Dialogs */
+
+.dialog-pane {
+    -fx-background-color: #3c3f41;
+}
+
+/* Menus */
+
+.menu-bar {
+    -fx-background-color: #3c3f41;
+    -fx-border-color: #323232;
+}
+
+.menu-bar .menu, .menu-bar .menu-item, .menu-bar .menu-button {
+    -fx-background-color: -fx-base;
+}
+
+.menu-bar .menu:hover, .menu-bar .menu-item:hover, .menu-bar .menu-button:hover {
+    -fx-background-color: #0094bd;
+}
+
+/* Combo Boxes */
+
+.combo-box .list-view .list-cell {
+    -fx-background-color: #3c3f41;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: #0094bd;
+}
+
+/* Scrolling */
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-default-button;
+    -fx-border-style: none;
+}
+
+.scroll-bar .thumb:hover, .scroll-bar .thumb:pressed {
+    -fx-background-color: derive(-fx-base, 25%);
+}
+
+.scroll-bar:vertical .increment-button,
+.scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+}

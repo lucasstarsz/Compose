@@ -1,0 +1,88 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.beryx.jlink' version '2.23.1'
+}
+
+group 'org.lucasstarsz'
+version '0.2.0'
+description = "A clean, simple text editor."
+
+application {
+    mainModule.set('Compose.main')
+    mainClass.set('org.lucasstarsz.composeapp.core.ComposeApp')
+}
+
+javafx {
+    version = '14'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.fxmisc.richtext:richtextfx:0.10.5'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+boolean usingSnapshot = false
+def snapshotVersion = "SNAPSHOT.1"
+
+jlink {
+    addExtraDependencies("javafx")
+    options.addAll('--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages')
+
+    launcher {
+        name = "Compose" + (usingSnapshot ? "-$snapshotVersion" : "")
+        noConsole = true
+    }
+
+    jpackage {
+
+        def currentOs = org.gradle.internal.os.OperatingSystem.current()
+        def dashType = currentOs.windows ? '-' : currentOs.macOsX ? '-' : '_'
+        def imgType = currentOs.windows ? 'ico' : currentOs.macOsX ? 'icns' : 'png'
+        icon = "src/main/resources/icons/fxpad_$imgType.$imgType"
+
+        jvmArgs += ['-XX:+CreateCoredumpOnCrash']
+        installerOptions += [
+                '--description', project.description,
+                '--vendor', 'Andrew Dey',
+                '--copyright', 'Copyright© 2020 Andrew Dey',
+                '--license-file', 'src/main/resources/LICENSE',
+                '--file-associations', 'src/main/resources/extensions/extension_txt.properties',
+                '--file-associations', 'src/main/resources/extensions/extension_text.properties',
+                '--app-version', project.version,
+                '-n', project.name
+        ]
+
+        if (currentOs.windows) {
+            installerType = "msi"
+            installerOptions += [
+                    '--win-per-user-install',
+                    '--install-dir', "Compose Text Editor${usingSnapshot ? " ${snapshotVersion}" : ""}",
+                    '--win-dir-chooser',
+                    '--win-shortcut',
+                    '--win-menu', '--win-menu-group', 'Productivity'
+            ]
+        } else if (currentOs.linux) {
+            installerType = "deb"
+            installerOptions += [
+                    '--linux-menu-group', 'Office',
+                    '--linux-shortcut',
+                    '--linux-deb-maintainer', 'andrewrcdey@gmail.com'
+            ]
+        } else if (currentOs.macOsX) {
+            installerType = "pkg"
+            installerOptions += [
+                    '--mac-package-name', 'Compose',
+            ]
+        }
+    }
+}
