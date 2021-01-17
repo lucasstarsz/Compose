@@ -81,11 +81,24 @@ public class ComposeApp extends Application {
             String[] result = new String[e.getStackTrace().length + 1];
             String[] error = Arrays.stream(e.getStackTrace()).map(Object::toString).toArray(String[]::new);
 
-            result[0] = "-".repeat(10) + " ERROR LOGFILE " + "-".repeat(10) + System.lineSeparator().repeat(2) + e.getLocalizedMessage();
+            /* Format the error log. */
+            String dashes = "-".repeat(10);
+            result[0] = dashes + " ERROR LOGFILE " + dashes
+                    + System.lineSeparator().repeat(2)
+                    + e.getLocalizedMessage();
             System.arraycopy(error, 0, result, 1, result.length - 1);
+
+            /* Write the error to the error log. */
             Files.write(log.toPath(), Collections.singleton(String.join(System.lineSeparator(), result)));
 
-            System.err.println("An error occurred while trying to run " + Defaults.title + "." + System.lineSeparator() + " A logfile was produced at: " + log.getAbsolutePath());
+            /* Notify the user. */
+            System.err.println(
+                    "An error occurred while trying to run " + Defaults.title + "."
+                            + System.lineSeparator()
+                            + " A logfile was produced at: " + log.getAbsolutePath()
+            );
+
+            /* Exit */
             Platform.exit();
         }
     }
