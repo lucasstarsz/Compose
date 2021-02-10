@@ -32,11 +32,5 @@
 <!--            <MenuItem fx:id="findMenuItem" text="Find" onAction="#find"/>-->
         </Menu>
     </MenuBar>
-    <FileTabPane fx:id="fileTabs" VBox.vgrow="ALWAYS">
-        <Tab text="+" onSelectionChanged="#openNewFile" closable="false">
-            <tooltip>
-                <Tooltip text="Create new file"/>
-            </tooltip>
-        </Tab>
-    </FileTabPane>
+    <FileTabPane fx:id="fileTabs" VBox.vgrow="ALWAYS"/>
 </VBox>

@@ -14,13 +14,20 @@ public class FileUtil {
     private static final FileChooser.ExtensionFilter textFileFilter = new FileChooser.ExtensionFilter("Text File", "*.txt");
     private static final FileChooser.ExtensionFilter allFilesFiler = new FileChooser.ExtensionFilter("All Files", "*.*");
 
+    public enum FileValidationStatus {
+        VALID,
+        DOES_NOT_EXIST,
+        TOO_BIG,
+        FAILED_TO_OPEN
+    }
+
     /**
      * Tries to open a new file, and returns the result.
      *
      * @param currentFile The current file.
      * @return The new file, with the possibility of being null.
      */
-    public static File tryOpenFile(File currentFile) {
+    public static File tryGetFromChooser(File currentFile) {
         FileChooser chooser = createFileChooser(currentFile);
         return chooser.showOpenDialog(ComposeApp.getStage());
     }
@@ -70,21 +77,20 @@ public class FileUtil {
         return chooser;
     }
 
-    public static boolean validateFile(File file) {
-        if (file.exists()) {
-            try {
-                if (Files.size(file.toPath()) < Defaults.fileSizeLimit) {
-                    return true;
-                } else {
-                    DialogUtil.fileTooBig(file, Defaults.readableFileSizeLimit);
-                }
-            } catch (IOException e) {
-                DialogUtil.cantOpenFile(file);
-            }
-        } else {
-            DialogUtil.doesNotExist(file.getAbsolutePath());
+    public static FileValidationStatus validateFile(File file) {
+        if (!Files.exists(file.toPath())) {
+            return FileValidationStatus.DOES_NOT_EXIST;
         }
 
-        return false;
+        try {
+            if (Files.size(file.toPath()) > Defaults.fileSizeLimit) {
+                return FileValidationStatus.TOO_BIG;
+            } else {
+                return FileValidationStatus.VALID;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return FileValidationStatus.FAILED_TO_OPEN;
+        }
     }
 }

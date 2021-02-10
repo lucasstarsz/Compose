@@ -5,7 +5,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.lucasstarsz.composeapp.core.ComposeApp;
-import org.lucasstarsz.composeapp.user.Preferences;
+import org.lucasstarsz.composeapp.utils.Defaults;
 import org.lucasstarsz.composeapp.utils.DialogUtil;
 import org.lucasstarsz.composeapp.utils.FileUtil;
 import org.lucasstarsz.composeapp.utils.TextUtil;
@@ -95,25 +95,27 @@ public class FileTab extends Tab {
     }
 
     public void setCurrentFile(File file) {
-        if (!unsavedChanges || DialogUtil.confirmUnsavedChanges(this, "open " + file.getName())) {
-            if (FileUtil.validateFile(file)) {
-                try {
-                    switchingFiles = true;
+        switch (FileUtil.validateFile(file)) {
+            case VALID -> {
+                if (!unsavedChanges || DialogUtil.confirmUnsavedChanges(this, "open " + file.getName())) {
+                    try {
+                        switchingFiles = true;
 
-                    currentFile = file;
-                    this.setText(currentFile.getName());
+                        originalText = ComposeApp.readFileContents(file).get();
 
-                    originalText = ComposeApp.readFileContents(file).get();
-                    textArea.replaceText(originalText);
-                    textArea.getUndoManager().forgetHistory();
+                        currentFile = file;
+                        this.setText(currentFile.getName());
+                        textArea.replaceText(originalText);
+                        textArea.getUndoManager().forgetHistory();
 
-                    unsavedChanges = false;
-                    switchingFiles = false;
-                } catch (InterruptedException | ExecutionException e) {
-                    DialogUtil.cantOpenFile(file);
-                    currentFile = new File("Untitled.txt");
+                        unsavedChanges = false;
+                        switchingFiles = false;
+                    } catch (InterruptedException | ExecutionException ignored) {}
                 }
             }
+            case DOES_NOT_EXIST -> DialogUtil.doesNotExist(file.getAbsolutePath());
+            case FAILED_TO_OPEN -> DialogUtil.cantOpenFile(file);
+            case TOO_BIG -> DialogUtil.fileTooBig(file, Defaults.readableFileSizeLimit);
         }
     }
 
@@ -128,7 +130,9 @@ public class FileTab extends Tab {
 
     public void saveFileAs() throws IOException {
         File f = FileUtil.trySaveFileAs(textArea, currentFile);
-        if (f != null) setCurrentFile(f);
+        if (f != null) {
+            setCurrentFile(f);
+        }
     }
 
     public void setFont(String fontStyle) {

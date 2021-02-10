@@ -2,11 +2,13 @@ package org.lucasstarsz.composeapp.core;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.lucasstarsz.composeapp.core.controllers.MainController;
 import org.lucasstarsz.composeapp.user.Preferences;
 import org.lucasstarsz.composeapp.utils.Defaults;
@@ -24,7 +26,8 @@ import java.util.concurrent.Future;
 
 public class ComposeApp extends Application {
 
-    private static String[] openOnStart = null;
+    public static Event closeRequest = new WindowEvent(ComposeApp.getStage(), WindowEvent.WINDOW_CLOSE_REQUEST);
+    private static String openOnStart = null;
 
     private static Stage mainStage;
     private static MainController mainController;
@@ -66,13 +69,14 @@ public class ComposeApp extends Application {
             mainStage = stage;
 
             createStage();
-            styleStage();
-
-            mainStage.show();
 
             if (openOnStart != null) {
-                mainController.openFiles(openOnStart);
+                mainController.openFile(new File(openOnStart));
             }
+            mainController.getFileTabPane().initNewTabTab();
+
+            styleStage();
+            mainStage.show();
 
             System.gc();
 
@@ -100,6 +104,7 @@ public class ComposeApp extends Application {
 
             /* Exit */
             Platform.exit();
+            System.exit(-1);
         }
     }
 
@@ -136,11 +141,11 @@ public class ComposeApp extends Application {
 
     public static void main(String[] args) {
         if (args.length > 0) {
-            openOnStart = Arrays.stream(args)
+            openOnStart = String.join(" ", Arrays.stream(args)
                     .filter(file -> !file.startsWith("-D"))
                     .filter(file -> !file.equals("org.lucasstarsz.composeapp.core.ComposeApp"))
-                    .toArray(String[]::new);
-            if (openOnStart.length == 0) {
+                    .toArray(String[]::new));
+            if (openOnStart.length() == 0) {
                 openOnStart = null;
             }
         }
