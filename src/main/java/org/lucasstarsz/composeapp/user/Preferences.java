@@ -1,5 +1,6 @@
 package org.lucasstarsz.composeapp.user;
 
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.lucasstarsz.composeapp.core.ComposeApp;
 import org.lucasstarsz.composeapp.utils.Defaults;
@@ -104,5 +105,18 @@ public class Preferences {
 
     public boolean isWrapText() {
         return wrapText;
+    }
+
+    public static void reapply() {
+        // reapply style if preferences have been created
+        if (ComposeApp.getPreferences() != null) {
+            Platform.runLater(() -> {
+                try {
+                    ComposeApp.getPreferences().apply(ComposeApp.getStage());
+                } catch (IOException e) {
+                    throw new IllegalStateException(e);
+                }
+            });
+        }
     }
 }

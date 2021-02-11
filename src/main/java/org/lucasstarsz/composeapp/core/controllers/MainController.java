@@ -118,7 +118,7 @@ public class MainController {
     }
 
     @FXML
-    private void openNewFile() {
+    private void openNewFile() throws IOException {
         fileTabs.addNewTab();
     }
 
