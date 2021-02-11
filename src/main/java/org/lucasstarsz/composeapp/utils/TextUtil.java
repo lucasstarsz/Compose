@@ -65,13 +65,42 @@ public class TextUtil {
     public static void enterWithTabs(ComposeArea textArea, KeyEvent event) {
         event.consume();
 
-        int[] currentLine = getCurrentLine(textArea);
-        String text = textArea.getText(currentLine[0], currentLine[1]);
-        int tabCount = getLeadingTabCount(text);
+        int tabCount = getLeadingTabCount(textArea);
         String tabsToAppend = (tabCount > 0 ? "\t".repeat(tabCount) : "");
 
         textArea.insertText(textArea.getCaretPosition(), '\n' + tabsToAppend);
         textArea.requestFollowCaret();
+    }
+
+    /**
+     * Gets the leading tab count of the current position of the caret in a ComposeArea.
+     *
+     * @param ta The ComposeArea to check the text of.
+     * @return The leading tab count.
+     */
+    public static int getLeadingTabCount(ComposeArea ta) {
+        /* start is caret index - 1, since caret position only matters
+         * if the caret starts as a newline or tab. */
+        int start = ta.getText().lastIndexOf('\t', ta.getCaretPosition() - 1);
+
+        // if no tabs present before caret
+        if (start == -1) {
+            return 0;
+        }
+
+        // if 2+ newlines in a row
+        if (ta.getText().charAt(ta.getCaretPosition() - 1) == '\n') {
+            return 0;
+        }
+
+        /* start is the last known tab, meaning we need to check for
+         * tabs starting there. */
+        int count = 0;
+        while (ta.getText().charAt(start - count) == '\t') {
+            count++;
+        }
+
+        return count;
     }
 
     /**
@@ -108,7 +137,8 @@ public class TextUtil {
      * @return the indexes of the first line, and the indexes of the last line.
      */
     public static int[] getSelectedLines(ComposeArea tx) {
-        if (tx.getSelectedText().isEmpty()) throw new IllegalStateException("The text area doesn't have anything selected.");
+        if (tx.getSelectedText().isEmpty())
+            throw new IllegalStateException("The text area doesn't have anything selected.");
 
         int[] front = getLineAtPosition(tx, tx.getSelection().getStart());
         int[] back = getLineAtPosition(tx, tx.getSelection().getEnd());
@@ -128,7 +158,7 @@ public class TextUtil {
      * @return The indexes of the line of text.
      */
     public static int[] getLineAtPosition(ComposeArea tx, int position) {
-        TwoDimensional.Position pos = tx.offsetToPosition(position, TwoDimensional.Bias.Forward);
+        TwoDimensional.Position pos = tx.offsetToPosition(position, TwoDimensional.Bias.Backward);
 
         int length = (pos.getMinor() - position < 0 ? pos.getMinor() : pos.getMinor() - position);
         if (!tx.getText().contains("\n")) length = tx.getLength();
