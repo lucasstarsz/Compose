@@ -27,7 +27,7 @@ application {
 }
 
 javafx {
-    version = '14'
+    version = '15'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
@@ -63,8 +63,7 @@ jlink {
                 '--license-file', 'src/main/resources/LICENSE.txt',
                 '--file-associations', 'src/main/resources/extensions/ext_txt.properties',
                 '--file-associations', 'src/main/resources/extensions/ext_text.properties',
-                '--app-version', project.version,
-                '--name', project.name
+                '--app-version', project.version
         ]
 
         // platform-specific options
