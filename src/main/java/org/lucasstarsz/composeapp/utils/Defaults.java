@@ -11,7 +11,7 @@ public class Defaults {
     public static final String userPropertiesPath = String.join(File.separator, userHomeDir, "preferences", "prefs.properties");
 
     public static final String baseStylePath = "/css/base.css";
-    public static final String iconPath = "/icons/fxpad_png.png";
+    public static final String iconPath = "/icons/compose_png.png";
 
     public static final String lightStylePath = "/css/themes/light.css";
     public static final String darcStylePath = "/css/themes/darc.css";
