@@ -1,12 +1,12 @@
 package org.lucasstarsz.composeapp.core.controllers;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
-import javafx.stage.WindowEvent;
 import org.lucasstarsz.composeapp.core.ComposeApp;
 import org.lucasstarsz.composeapp.nodes.FileTab;
 import org.lucasstarsz.composeapp.nodes.FileTabPane;
@@ -18,7 +18,6 @@ import org.lucasstarsz.composeapp.utils.TextUtil;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
