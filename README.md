@@ -2,8 +2,7 @@
 
 The text editor.
 
-[Releases][Download Link]
-[Changelog][Changelog link]
+[Releases][Download Link] • [Changelog][Changelog link]
 
 ### Building from source
 - Clone the repository: `git clone https://github.com/lucasstarsz/Compose.git`
