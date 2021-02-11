@@ -4,12 +4,14 @@ import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
+import org.lucasstarsz.composeapp.core.ComposeApp;
 import org.lucasstarsz.composeapp.user.Preferences;
 import org.lucasstarsz.composeapp.utils.Defaults;
 import org.lucasstarsz.composeapp.utils.DialogUtil;
 import org.lucasstarsz.composeapp.utils.FileUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -82,6 +84,7 @@ public class FileTabPane extends TabPane {
                 }
 
                 this.getSelectionModel().select(tab);
+                Preferences.reapply();
                 Platform.runLater(tab.getTextArea()::requestFocus);
             }
             case DOES_NOT_EXIST -> DialogUtil.doesNotExist(file.getAbsolutePath());
@@ -94,6 +97,7 @@ public class FileTabPane extends TabPane {
         FileTab tab = new FileTab();
         this.getTabs().add(this.getTabs().size() - 1, tab);
         this.getSelectionModel().select(tab);
+        Preferences.reapply();
         Platform.runLater(tab.getTextArea()::requestFocus);
     }
 

@@ -12,6 +12,7 @@ import org.lucasstarsz.composeapp.utils.TextUtil;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.concurrent.ExecutionException;
 
 public class FileTab extends Tab {
@@ -110,7 +111,8 @@ public class FileTab extends Tab {
 
                         unsavedChanges = false;
                         switchingFiles = false;
-                    } catch (InterruptedException | ExecutionException ignored) {}
+                    } catch (InterruptedException | ExecutionException ignored) {
+                    }
                 }
             }
             case DOES_NOT_EXIST -> DialogUtil.doesNotExist(file.getAbsolutePath());
@@ -120,10 +122,22 @@ public class FileTab extends Tab {
     }
 
     public void saveFile() throws IOException {
-        if (currentFile.exists()) {
+        System.out.println(currentFile.getAbsolutePath());
+        if (Files.exists(currentFile.toPath())) {
             FileUtil.write(textArea, currentFile);
-            setCurrentFile(currentFile);
+
+            // if file is the same, avoid replacement
+            if (this.getText().substring(0, this.getText().length() - 1).equals(currentFile.getName())) {
+                this.setText(currentFile.getName());
+                textArea.getUndoManager().forgetHistory();
+
+                unsavedChanges = false;
+                switchingFiles = false;
+            } else {
+                setCurrentFile(currentFile);
+            }
         } else {
+            System.out.println("save as");
             saveFileAs();
         }
     }
