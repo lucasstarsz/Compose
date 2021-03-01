@@ -23,18 +23,22 @@ With color appeal on the rise, Compose came prepared with themes -- more are on 
 
 #### Darc Theme
 Dark theme enthusiasts, rejoice!
+
 <img src=".github/demo-images/darc.png" width="60%" height="60%" alt="Compose: Darc Theme"/>
 
 #### Light Theme
 Light theme users, rejoice!
+
 <img src=".github/demo-images/light.png" width="60%" height="60%" alt="Compose: Light Theme"/>
 
 #### Fresh Theme
 Want something fresh and out there? You can rejoice too!
+
 <img src=".github/demo-images/fresh.png" width="60%" height="60%" alt="Compose: Fresh Theme"/>
 
 ### Configurable Settings
 Easily change the text wrap, font, font size, and theme -- Compose auto-magically saves your settings for you to come back later.
+
 <img src=".github/demo-images/settings-demo.gif" width="60%" height="60%" alt="Compose: Configurable Settings"/>
 
 ## Building the Source Code
