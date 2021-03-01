@@ -60,7 +60,7 @@ jlink {
                 '--description', 'A clean, simple text editor.',
                 '--vendor', 'Andrew Dey',
                 '--copyright', 'Copyright© 2020-2021 Andrew Dey',
-                '--license-file', 'src/main/resources/LICENSE.txt',
+                '--license-file', 'LICENSE.txt',
                 '--file-associations', 'src/main/resources/extensions/ext_txt.properties',
                 '--file-associations', 'src/main/resources/extensions/ext_text.properties',
                 '--app-version', project.version
