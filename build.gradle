@@ -83,7 +83,7 @@ jlink {
             ]
         } else if (currentOs.linux) {
             installerType = "deb"
-            icon = "${iconPath}_icns.icns"
+            icon = "${iconPath}_png.png"
 
             installerOptions += [
                     '--linux-menu-group', 'Office',
@@ -92,7 +92,7 @@ jlink {
             ]
         } else if (currentOs.macOsX) {
             installerType = "pkg"
-            icon = "${iconPath}_png.png"
+            icon = "${iconPath}_icns.icns"
 
             installerOptions += [
                     '--mac-package-name', 'Compose'
