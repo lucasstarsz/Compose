@@ -122,14 +122,13 @@ public class FileTab extends Tab {
     }
 
     public void saveFile() throws IOException {
-        System.out.println(currentFile.getAbsolutePath());
         if (Files.exists(currentFile.toPath())) {
             FileUtil.write(textArea, currentFile);
+            System.out.println("Saved" + currentFile.getAbsolutePath());
 
             // if file is the same, avoid replacement
             if (this.getText().substring(0, this.getText().length() - 1).equals(currentFile.getName())) {
                 this.setText(currentFile.getName());
-                textArea.getUndoManager().forgetHistory();
 
                 unsavedChanges = false;
                 switchingFiles = false;
@@ -137,7 +136,6 @@ public class FileTab extends Tab {
                 setCurrentFile(currentFile);
             }
         } else {
-            System.out.println("save as");
             saveFileAs();
         }
     }
@@ -145,7 +143,9 @@ public class FileTab extends Tab {
     public void saveFileAs() throws IOException {
         File f = FileUtil.trySaveFileAs(textArea, currentFile);
         if (f != null) {
+            String oldFileName = currentFile.getAbsolutePath();
             setCurrentFile(f);
+            System.out.println("Saved " + oldFileName + " as " + f.getAbsolutePath());
         }
     }
 
