@@ -124,7 +124,7 @@ public class FileTab extends Tab {
     public void saveFile() throws IOException {
         if (Files.exists(currentFile.toPath())) {
             FileUtil.write(textArea, currentFile);
-            System.out.println("Saved" + currentFile.getAbsolutePath());
+            System.out.println("Saved: " + currentFile.getAbsolutePath());
 
             // if file is the same, avoid replacement
             if (this.getText().substring(0, this.getText().length() - 1).equals(currentFile.getName())) {
@@ -145,7 +145,7 @@ public class FileTab extends Tab {
         if (f != null) {
             String oldFileName = currentFile.getAbsolutePath();
             setCurrentFile(f);
-            System.out.println("Saved " + oldFileName + " as " + f.getAbsolutePath());
+            System.out.println("Saved: " + oldFileName + " as: " + f.getAbsolutePath());
         }
     }
 
