@@ -57,12 +57,14 @@ public class SettingsController {
     private void setTheme() {
         ComposeApp.getPreferences().setTheme(themes.get(themeSelector.getSelectionModel().getSelectedItem()));
         Preferences.reapply();
+        themeSelector.setPromptText("Set Theme (Current: " + ComposeApp.getPreferences().getThemeName() + ")");
     }
 
     @FXML
     private void setFont() {
         ComposeApp.getPreferences().setFontName(fontSelector.getSelectionModel().getSelectedItem());
         Preferences.reapply();
+        fontSelector.setPromptText("Set Font (Current: " + ComposeApp.getPreferences().getFontName() + ")");
     }
 
     @FXML
@@ -71,6 +73,7 @@ public class SettingsController {
             int fontSize = Integer.parseInt(fontSizeField.getText());
             ComposeApp.getPreferences().setFontSize(fontSize);
             Preferences.reapply();
+            fontSizeField.setPromptText("Current Font Size: " + ComposeApp.getPreferences().getFontSize());
         } catch (NumberFormatException ignored) {
         }
     }
