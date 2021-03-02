@@ -28,7 +28,7 @@ jobs:
       - name: JPackage using Gradle
         run: ./gradlew jpackage
       - name: Upload JPackage artifact
-      - uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: an-artifact
           path: build/jpackage/
