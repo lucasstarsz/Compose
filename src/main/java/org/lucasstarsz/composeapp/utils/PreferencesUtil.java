@@ -31,7 +31,7 @@ public class PreferencesUtil {
                                 + System.lineSeparator()
                                 + "fontsize=16"
                                 + System.lineSeparator()
-                                + "wraptext=false"
+                                + "wraptext=true"
                 );
             }
         }
