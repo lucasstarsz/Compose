@@ -3,7 +3,7 @@ name: Feature Request
 about: Think we're missing something? We're happy to hear you out.
 title: "[FEATURE REQUEST]"
 labels: enhancement
-assignees: ''
+assignees: lucasstarsz
 
 ---
 

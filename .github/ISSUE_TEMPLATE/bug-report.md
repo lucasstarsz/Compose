@@ -3,7 +3,7 @@ name: Bug Report
 about: Something not working? Let us know!
 title: "[BUG REPORT]"
 labels: bug
-assignees: ''
+assignees: lucasstarsz
 
 ---
 
