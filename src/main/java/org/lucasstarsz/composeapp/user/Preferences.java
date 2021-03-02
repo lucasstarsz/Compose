@@ -60,7 +60,7 @@ public class Preferences {
     public void setTheme(String newTheme) {
         themePath = newTheme;
         themeName = switch (themePath) {
-            case Defaults.darcStylePath -> "Dark";
+            case Defaults.darcStylePath -> "Darc";
             case Defaults.lightStylePath -> "Light";
             case Defaults.freshStylePath -> "Fresh";
             default -> "Custom Theme";
