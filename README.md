@@ -77,4 +77,5 @@ This repository is licensed under the [MIT License][MIT-License].
 
 [JavaFX-Link]: https://openjfx.io "JavaFX"
 [Terminals Are Different]: https://gist.github.com/lucasstarsz/9bbc306f8655b916367d557043e498ad "Terminals Access Files Differently"
+[Git-Link]: https://git-scm.com/ "Git Source Control Manager"
 [MIT-License]: LICENSE.txt "MIT License"
