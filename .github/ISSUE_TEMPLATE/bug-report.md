@@ -8,7 +8,7 @@ assignees: lucasstarsz
 ---
 
 ## Platform Info
-Place an `x` in the box(es)_ `[x]` _that the issue occurs on (or that you've found the issue on)
+_Place an `x` in the box(es)_ `[x]` _that the issue occurs on (or that you've found the issue on)_
 - [ ] Windows
   - Version: _e.g. Windows 10 20H2_
 - [ ] Mac OS
@@ -17,13 +17,13 @@ Place an `x` in the box(es)_ `[x]` _that the issue occurs on (or that you've fou
   - Distro: _e.g Linux Mint_
   - Version: _e.g. 20.1_
 
-**Describe the bug**
+## The Bug
 _A clear and concise description of what the bug is._
 
 ## Expected behavior
 _A clear and concise description of what you expected to happen._
 
-**To Reproduce**
+## To Reproduce
 _Steps to reproduce the behavior:_
 1. Go to '...'
 2. Click on '....'
@@ -33,5 +33,5 @@ _Steps to reproduce the behavior:_
 ## Media Aid
 _If applicable, add screenshots/GIFs/Videos to help explain your problem._
 
-**Additional context**
+# Additional context
 _Additional context not provided above._
