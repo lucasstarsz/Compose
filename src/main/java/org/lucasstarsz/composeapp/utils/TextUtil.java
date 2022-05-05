@@ -87,6 +87,7 @@ public class TextUtil {
         if (start == -1) {
             return 0;
         }
+        // if start is 0, begin
 
         // if 2+ newlines in a row
         if (ta.getText().charAt(ta.getCaretPosition() - 1) == '\n') {
@@ -94,9 +95,12 @@ public class TextUtil {
         }
 
         /* start is the last known tab, meaning we need to check for
-         * tabs starting there. */
+         * tabs starting there.
+         *
+         * the loop will end either when the index to check is -1, or
+         * when the character at the index is not \t. */
         int count = 0;
-        while (ta.getText().charAt(start - count) == '\t') {
+        while (start - count > -1 && ta.getText().charAt(start - count) == '\t') {
             count++;
         }
 
