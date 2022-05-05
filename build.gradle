@@ -1,24 +1,19 @@
 plugins {
-    // it's a java application. What did you expect?
-    id 'java'
+    // Just a normal application id, nothing to see here
     id 'application'
 
-    // jlink and jpackage plugins are always nice
-    id 'org.openjfx.javafxplugin' version '0.0.9'
-    id 'org.beryx.jlink' version '2.23.1'
+    // jlink/jpackage plugins are always nice
+    id 'org.beryx.jlink' version '2.24.1'
 }
 
 group('org.lucasstarsz')
 version('0.2.1')
 
 // Build
+def currentOs = org.gradle.internal.os.OperatingSystem.current()
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation 'org.fxmisc.richtext:richtextfx:0.10.5'
+java {
+    modularity.inferModulePath.set(true)
 }
 
 application {
@@ -26,18 +21,31 @@ application {
     mainClass.set('org.lucasstarsz.composeapp.core.ComposeApp')
 }
 
-javafx {
-    version = '15'
-    modules = ['javafx.controls', 'javafx.fxml']
+repositories {
+    mavenCentral()
 }
 
-// Test
+dependencies {
+    implementation 'org.fxmisc.richtext:richtextfx:0.10.9'
+    implementation 'org.fxmisc.undo:undofx:2.1.1'
+    implementation 'org.fxmisc.flowless:flowless:0.6.9'
+
+    // since gradle 6.6, we grab dependencies straight from the source
+    def platform = (currentOs.windows ? 'win' : currentOs.linux ? 'linux' : currentOs.macOsX ? 'mac' : '')
+    implementation "org.openjfx:javafx-base:17:${platform}"
+    implementation "org.openjfx:javafx-controls:17:${platform}"
+    implementation "org.openjfx:javafx-graphics:17:${platform}"
+    implementation "org.openjfx:javafx-fxml:17:${platform}"
+}
+
+// Testing
+// TODO: add tests for utility methods
 
 test {
     useJUnitPlatform()
 }
 
-// Package
+// Packaging & Distribution
 
 boolean usingSnapshot = false
 def snapshotVersion = "SNAPSHOT"
@@ -55,7 +63,7 @@ jlink {
 
     jpackage {
         // cross-platform options
-        jvmArgs += ['-XX:+CreateCoredumpOnCrash']
+        jvmArgs += ['-XX:+CreateCoredumpOnCrash', '-XX:+UseZGC']
         installerOptions += [
                 '--description', 'A clean, simple text editor.',
                 '--vendor', 'Andrew Dey',
@@ -67,7 +75,6 @@ jlink {
         ]
 
         // platform-specific options
-        def currentOs = org.gradle.internal.os.OperatingSystem.current()
         def iconPath = 'src/main/resources/icons/compose'
 
         if (currentOs.windows) {
@@ -98,5 +105,16 @@ jlink {
                     '--mac-package-name', 'Compose'
             ]
         }
+    }
+}
+
+// Java 17 is a must!
+compileJava {
+    options.release.set(17)
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
     }
 }

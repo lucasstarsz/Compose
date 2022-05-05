@@ -8,7 +8,7 @@ import javafx.stage.Window;
 import org.lucasstarsz.composeapp.core.ComposeApp;
 import org.lucasstarsz.composeapp.nodes.FileTab;
 
-import java.awt.*;
+//import java.awt.*;
 import java.io.File;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -141,8 +141,6 @@ public class DialogUtil {
         assert confirmationAlert.getAlertType() == Alert.AlertType.WARNING;
 
         AtomicReference<Boolean> confirmation = new AtomicReference<>(false);
-        Toolkit.getDefaultToolkit().beep();
-
         confirmationAlert.showAndWait().ifPresent(button -> {
             if (button == ButtonType.YES) {
                 confirmation.set(true);
