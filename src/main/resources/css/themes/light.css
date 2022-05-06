@@ -69,11 +69,10 @@ ComposeArea .caret {
 
 /* Scrolling */
 
-.scroll-bar .thumb {
-    -fx-border-radius: .05em;
-    -fx-background-color: -fx-base;
-    -fx-border-style: solid;
-    -fx-border-color: lightgray;
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: -fx-default-button;
+    -fx-border-style: none;
 }
 
 .scroll-bar .thumb:hover, .scroll-bar .thumb:pressed {
