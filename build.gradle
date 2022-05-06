@@ -3,7 +3,7 @@ plugins {
     id 'application'
 
     // jlink/jpackage plugins are always nice
-    id 'org.beryx.jlink' version '2.24.1'
+    id 'org.beryx.jlink' version '2.25.0'
 }
 
 group('org.lucasstarsz')
@@ -67,7 +67,7 @@ jlink {
         installerOptions += [
                 '--description', 'A clean, simple text editor.',
                 '--vendor', 'Andrew Dey',
-                '--copyright', 'Copyright© 2020-2021 Andrew Dey',
+                '--copyright', 'Copyright© 2020-2022 Andrew Dey',
                 '--license-file', 'LICENSE.txt',
                 '--file-associations', 'src/main/resources/extensions/ext_txt.properties',
                 '--file-associations', 'src/main/resources/extensions/ext_text.properties',
