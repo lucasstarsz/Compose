@@ -33,6 +33,10 @@ ParagraphText {
     -fx-border-style: none none solid none;
 }
 
+.tab-header-area {
+    -fx-padding: 0 0 0 0;
+}
+
 .tab-pane:focused > .tab-header-area > .headers-region > .tab:selected .focus-indicator {
     -fx-border-color: transparent;
 }
