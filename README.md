@@ -22,18 +22,12 @@ Compose is a text editor written in Java, specifically [JavaFX][JavaFX-Link]. It
 With color appeal on the rise, Compose came prepared with themes -- more are on the way!
 
 #### Darc Theme
-Dark theme enthusiasts, rejoice!
-
 <img src=".github/demo-images/darc.png" width="60%" height="60%" alt="Compose: Darc Theme"/>
 
 #### Light Theme
-Light theme users, rejoice!
-
 <img src=".github/demo-images/light.png" width="60%" height="60%" alt="Compose: Light Theme"/>
 
 #### Fresh Theme
-Want something fresh and out there? You can rejoice too!
-
 <img src=".github/demo-images/fresh.png" width="60%" height="60%" alt="Compose: Fresh Theme"/>
 
 ### Configurable Settings
