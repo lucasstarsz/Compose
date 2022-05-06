@@ -70,7 +70,7 @@ public class MainController {
     private MenuItem findMenuItem;
 
     @FXML
-    private ContentTabPane fileTabs;
+    private ContentTabPane contentTabs;
 
     @FXML
     public void initialize() {
@@ -139,17 +139,17 @@ public class MainController {
     }
 
     public void openFile(File file) {
-        fileTabs.addContentTab(file);
+        contentTabs.addContentTab(file);
     }
 
     @FXML
     private void openNewFile() {
-        fileTabs.addNewFileTab();
+        contentTabs.addNewFileTab();
     }
 
     @FXML
     private void openFileFromChooser() {
-        ContentTab currentTab = fileTabs.getCurrentContentTab();
+        ContentTab currentTab = contentTabs.getCurrentContentTab();
         File file = FileUtil.tryGetFromChooser(currentTab.getCurrentFile());
 
         if (file != null) {
@@ -165,12 +165,12 @@ public class MainController {
 
     @FXML
     private void closeCurrentFile() {
-        fileTabs.closeCurrentTab();
+        contentTabs.closeCurrentTab();
     }
 
     @FXML
     private void closeAllFiles() {
-        fileTabs.closeAllTabs();
+        contentTabs.closeAllTabs();
     }
 
     @FXML
@@ -190,66 +190,66 @@ public class MainController {
 
     @FXML
     private void saveFile() throws IOException {
-        fileTabs.getCurrentContentTab().saveFile();
+        contentTabs.getCurrentContentTab().saveFile();
     }
 
     @FXML
     private void saveFileAs() throws IOException {
-        fileTabs.getCurrentContentTab().saveFileAs();
+        contentTabs.getCurrentContentTab().saveFileAs();
     }
 
     @FXML
     private void undo() {
-        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+        if (contentTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
             textModifiable.undo();
         }
     }
 
     @FXML
     private void redo() {
-        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+        if (contentTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
             textModifiable.redo();
         }
     }
 
     @FXML
     private void copy() {
-        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+        if (contentTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
             textModifiable.copy();
         }
     }
 
     @FXML
     private void cut() {
-        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+        if (contentTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
             textModifiable.cut();
         }
     }
 
     @FXML
     private void paste() {
-        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+        if (contentTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
             textModifiable.paste();
         }
     }
 
     @FXML
     private void selectAll() {
-        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+        if (contentTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
             textModifiable.selectAll();
         }
     }
 
     @FXML
     private void shiftRight() {
-        if (fileTabs.getCurrentContentTab() instanceof FileTab fileTab) {
+        if (contentTabs.getCurrentContentTab() instanceof FileTab fileTab) {
             TextUtil.shift(fileTab.getTextArea(), 1);
         }
     }
 
     @FXML
     private void shiftLeft() {
-        if (fileTabs.getCurrentContentTab() instanceof FileTab fileTab) {
+        if (contentTabs.getCurrentContentTab() instanceof FileTab fileTab) {
             TextUtil.shift(fileTab.getTextArea(), -1);
         }
     }
@@ -260,6 +260,6 @@ public class MainController {
     }
 
     public ContentTabPane getFileTabPane() {
-        return fileTabs;
+        return contentTabs;
     }
 }

@@ -32,5 +32,5 @@
 <!--            <MenuItem fx:id="findMenuItem" text="Find" onAction="#find"/>-->
         </Menu>
     </MenuBar>
-    <ContentTabPane fx:id="fileTabs" VBox.vgrow="ALWAYS"/>
+    <ContentTabPane fx:id="contentTabs" VBox.vgrow="ALWAYS"/>
 </VBox>
