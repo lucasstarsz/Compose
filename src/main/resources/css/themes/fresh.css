@@ -1,11 +1,11 @@
 .root {
-    -fx-base: #f5f5f5;
-    -fx-accent: #0099c0;
+    -fx-base: #001c30;
+    -fx-accent: #00304d;
 
-    -fx-focus-color: #0099c0;
-    -fx-faint-focus-color: #2c9fc4;
+    -fx-focus-color: #003b6a;
+    -fx-faint-focus-color: #004275;
 
-    -fx-default-button: #f5f5f5;
+    -fx-default-button: #001c30;
 }
 
 /* Tabs */
@@ -15,46 +15,51 @@
 }
 
 .tab:selected {
-    -fx-background-color: derive(-fx-accent, 50%);
+    -fx-background-color: #004275;
 }
 
 .tab:hover {
-    -fx-background-color: #007494;
+    -fx-background-color: #003b6a;
 }
 
 .tab:selected:hover {
-    -fx-background-color: #7dbec6;
+    -fx-background-color: #004275;
 }
 
 .tab-header-background {
-    -fx-border-color: -fx-accent;
-    /*-fx-background-color: -fx-base;*/
+    -fx-background-color: -fx-base;
+}
+
+/* Text Fields */
+.text-field {
+    -fx-background-color: derive(-fx-base, 10%);
+    -fx-text-fill: #f7fafa;
 }
 
 /* Text Areas */
 
 ComposeArea, .text-area .content {
-    -fx-background-color: -fx-base;
+    -fx-background-color: derive(-fx-base, 10%);
 }
 
 ComposeArea .text {
-    -fx-fill: #000000;
+    -fx-fill: #f7fafa;
 }
 
 ComposeArea .caret {
-    -fx-stroke: #000000;
+    -fx-stroke: #f7fafa;
 }
 
 .text-area {
-    -fx-text-fill: #000000;
+    -fx-text-fill: #f7fafa;
 }
 
 /* Text Line Numbers */
 
 .lineno, .lineno-rect {
-    -fx-fill: #0099c0;
-    -fx-background-color: #0099c0;
-    -fx-text-fill: black;
+    -fx-fill: #001c30;
+    -fx-background-color: #001c30;
+    -fx-text-fill: #f7fafa;
 }
 
 /* Dialogs */
@@ -66,51 +71,51 @@ ComposeArea .caret {
 /* Menus */
 
 .menu-bar {
-    -fx-background-color: -fx-accent;
-    -fx-border-color: #007494;
+    -fx-background-color: -fx-base;
+    -fx-border-color: -fx-base;
 }
 
 .menu-bar .menu {
-    -fx-background-color: -fx-accent;
+    -fx-background-color: -fx-base;
 }
 
 .menu-bar .menu:hover {
-    -fx-background-color: -fx-base;
-}
-
-.menu-item, .menu-button, .menu-bar .menu .menu {
-    -fx-background-color: -fx-base;
-}
-
-.menu-item:hover, .menu-button:hover, .menu-bar .menu .menu:hover {
     -fx-background-color: -fx-accent;
 }
 
+.menu-item, .menu-button, .menu-bar .menu .menu {
+    -fx-background-color: -fx-accent;
+}
+
+.menu-item:hover, .menu-button:hover, .menu-bar .menu .menu:hover {
+    -fx-background-color: -fx-faint-focus-color;
+}
+
 .menu .label {
-    -fx-text-fill: black;
+    -fx-text-fill: #f7fafa;
 }
 
 /* Combo Boxes */
 
 .combo-box .list-view .list-cell {
-    -fx-background-color: #f5f5f5;
-    -fx-text-fill: black;
+    -fx-background-color: #001c30;
+    -fx-text-fill: #f7fafa;
 }
 
 .combo-box .list-view .list-cell:hover {
-    -fx-background-color: #0099c0;
+    -fx-background-color: #00304d;
 }
 
 /* Scrolling */
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #e0e0e0;
+    -fx-background-color: -fx-accent;
     -fx-border-style: none;
 }
 
 .scroll-bar .thumb:hover, .scroll-bar .thumb:pressed {
-    -fx-background-color: #bababa;
+    -fx-background-color: -fx-focus-color;
 }
 
 .scroll-bar:vertical .increment-button,
