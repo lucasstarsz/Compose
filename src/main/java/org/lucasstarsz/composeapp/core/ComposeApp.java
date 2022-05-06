@@ -73,7 +73,7 @@ public class ComposeApp extends Application {
             if (openOnStart != null) {
                 mainController.openFile(new File(openOnStart));
             }
-            mainController.getFileTabPane().initNewTabTab();
+            mainController.getFileTabPane().initNewFileTab();
 
             styleStage();
             mainStage.show();

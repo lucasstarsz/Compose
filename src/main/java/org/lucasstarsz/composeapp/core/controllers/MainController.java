@@ -139,12 +139,12 @@ public class MainController {
     }
 
     public void openFile(File file) {
-        fileTabs.addTab(file);
+        fileTabs.addContentTab(file);
     }
 
     @FXML
     private void openNewFile() {
-        fileTabs.addNewTab();
+        fileTabs.addNewFileTab();
     }
 
     @FXML
