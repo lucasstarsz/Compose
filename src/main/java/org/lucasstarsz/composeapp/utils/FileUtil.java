@@ -1,13 +1,13 @@
 package org.lucasstarsz.composeapp.utils;
 
-import javafx.stage.FileChooser;
-import org.lucasstarsz.composeapp.core.ComposeApp;
-import org.lucasstarsz.composeapp.nodes.ComposeArea;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+
+import javafx.stage.FileChooser;
+import org.lucasstarsz.composeapp.core.ComposeApp;
+import org.lucasstarsz.composeapp.nodes.ComposeArea;
 
 public class FileUtil {
 
@@ -43,7 +43,9 @@ public class FileUtil {
     public static File trySaveFileAs(ComposeArea textArea, File file) throws IOException {
         FileChooser chooser = createFileChooser(file);
         File saveFile = chooser.showSaveDialog(ComposeApp.getStage());
-        if (saveFile != null) FileUtil.write(textArea, saveFile);
+        if (saveFile != null) {
+            FileUtil.write(textArea, saveFile);
+        }
         return saveFile;
     }
 
@@ -52,8 +54,8 @@ public class FileUtil {
      *
      * @param textArea The container of the content to write.
      * @param file     The file to write to.
-     * @throws IOException This is thrown by {@code new FileWriter(...), FileWriter#write(...)} if there is an error when creating the
-     *                     {@link FileWriter} or while writing the file.
+     * @throws IOException This is thrown by {@code new FileWriter(...), FileWriter#write(...)} if there is an error
+     *                     when creating the {@link FileWriter} or while writing the file.
      */
     public static void write(ComposeArea textArea, File file) throws IOException {
         try (FileWriter fw = new FileWriter(file.getAbsoluteFile())) {

@@ -1,16 +1,15 @@
 package org.lucasstarsz.composeapp.utils;
 
+import java.io.File;
+import java.util.concurrent.atomic.AtomicReference;
+
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.stage.Modality;
 import javafx.stage.Window;
 import org.lucasstarsz.composeapp.core.ComposeApp;
-import org.lucasstarsz.composeapp.nodes.FileTab;
-
-//import java.awt.*;
-import java.io.File;
-import java.util.concurrent.atomic.AtomicReference;
+import org.lucasstarsz.composeapp.nodes.ContentTab;
 
 public class DialogUtil {
 
@@ -41,7 +40,7 @@ public class DialogUtil {
      * @param tab The tab to be closed.
      * @return The user's decision, to either proceed or cancel the operation.
      */
-    public static boolean confirmUnsavedChanges(FileTab tab, String reason) {
+    public static boolean confirmUnsavedChanges(ContentTab tab, String reason) {
         Alert confirmUnsavedAlert = createWarningAlert();
 
         confirmUnsavedAlert.setTitle("Unsaved Changes");

@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.VBox?>
-<?import org.lucasstarsz.composeapp.nodes.FileTabPane?>
+<?import org.lucasstarsz.composeapp.nodes.ContentTabPane?>
 <VBox fx:id="mainContainer" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.lucasstarsz.composeapp.core.controllers.MainController">
     <MenuBar VBox.vgrow="ALWAYS">
@@ -32,5 +32,5 @@
 <!--            <MenuItem fx:id="findMenuItem" text="Find" onAction="#find"/>-->
         </Menu>
     </MenuBar>
-    <FileTabPane fx:id="fileTabs" VBox.vgrow="ALWAYS"/>
+    <ContentTabPane fx:id="fileTabs" VBox.vgrow="ALWAYS"/>
 </VBox>

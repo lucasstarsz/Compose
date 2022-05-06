@@ -1,20 +1,5 @@
 package org.lucasstarsz.composeapp.core.controllers;
 
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.*;
-import javafx.scene.layout.VBox;
-import org.lucasstarsz.composeapp.core.ComposeApp;
-import org.lucasstarsz.composeapp.nodes.FileTab;
-import org.lucasstarsz.composeapp.nodes.FileTabPane;
-import org.lucasstarsz.composeapp.utils.Defaults;
-import org.lucasstarsz.composeapp.utils.DialogUtil;
-import org.lucasstarsz.composeapp.utils.FileUtil;
-import org.lucasstarsz.composeapp.utils.TextUtil;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -22,30 +7,70 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.VBox;
+import org.lucasstarsz.composeapp.core.ComposeApp;
+import org.lucasstarsz.composeapp.nodes.ContentTab;
+import org.lucasstarsz.composeapp.nodes.ContentTabPane;
+import org.lucasstarsz.composeapp.nodes.FileTab;
+import org.lucasstarsz.composeapp.nodes.TextModifiable;
+import org.lucasstarsz.composeapp.utils.Defaults;
+import org.lucasstarsz.composeapp.utils.DialogUtil;
+import org.lucasstarsz.composeapp.utils.FileUtil;
+import org.lucasstarsz.composeapp.utils.TextUtil;
+
 public class MainController {
 
-    @FXML private VBox mainContainer;
+    @FXML
+    private VBox mainContainer;
 
-    @FXML private MenuItem newFileMenuItem;
-    @FXML private MenuItem openMenuItem;
-    @FXML private MenuItem saveMenuItem;
-    @FXML private MenuItem saveAsMenuItem;
-    @FXML private MenuItem closeCurrentMenuItem;
-    @FXML private MenuItem closeAllMenuItem;
-    @FXML private MenuItem closeComposeMenuItem;
-    @FXML private MenuItem settingsMenuItem;
+    @FXML
+    private MenuItem newFileMenuItem;
+    @FXML
+    private MenuItem openMenuItem;
+    @FXML
+    private MenuItem saveMenuItem;
+    @FXML
+    private MenuItem saveAsMenuItem;
+    @FXML
+    private MenuItem closeCurrentMenuItem;
+    @FXML
+    private MenuItem closeAllMenuItem;
+    @FXML
+    private MenuItem closeComposeMenuItem;
+    @FXML
+    private MenuItem settingsMenuItem;
 
-    @FXML private MenuItem undoMenuItem;
-    @FXML private MenuItem redoMenuItem;
-    @FXML private MenuItem cutMenuItem;
-    @FXML private MenuItem copyMenuItem;
-    @FXML private MenuItem pasteMenuItem;
-    @FXML private MenuItem selectAllMenuItem;
-    @FXML private MenuItem shiftLeftMenuItem;
-    @FXML private MenuItem shiftRightMenuItem;
-    @FXML private MenuItem findMenuItem;
+    @FXML
+    private MenuItem undoMenuItem;
+    @FXML
+    private MenuItem redoMenuItem;
+    @FXML
+    private MenuItem cutMenuItem;
+    @FXML
+    private MenuItem copyMenuItem;
+    @FXML
+    private MenuItem pasteMenuItem;
+    @FXML
+    private MenuItem selectAllMenuItem;
+    @FXML
+    private MenuItem shiftLeftMenuItem;
+    @FXML
+    private MenuItem shiftRightMenuItem;
+    @FXML
+    private MenuItem findMenuItem;
 
-    @FXML private FileTabPane fileTabs;
+    @FXML
+    private ContentTabPane fileTabs;
 
     @FXML
     public void initialize() {
@@ -118,13 +143,13 @@ public class MainController {
     }
 
     @FXML
-    private void openNewFile() throws IOException {
+    private void openNewFile() {
         fileTabs.addNewTab();
     }
 
     @FXML
     private void openFileFromChooser() {
-        FileTab currentTab = fileTabs.getCurrentFileTab();
+        ContentTab currentTab = fileTabs.getCurrentContentTab();
         File file = FileUtil.tryGetFromChooser(currentTab.getCurrentFile());
 
         if (file != null) {
@@ -165,52 +190,68 @@ public class MainController {
 
     @FXML
     private void saveFile() throws IOException {
-        fileTabs.getCurrentFileTab().saveFile();
+        fileTabs.getCurrentContentTab().saveFile();
     }
 
     @FXML
     private void saveFileAs() throws IOException {
-        fileTabs.getCurrentFileTab().saveFileAs();
+        fileTabs.getCurrentContentTab().saveFileAs();
     }
 
     @FXML
     private void undo() {
-        fileTabs.getCurrentFileTab().getTextArea().undo();
+        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+            textModifiable.undo();
+        }
     }
 
     @FXML
     private void redo() {
-        fileTabs.getCurrentFileTab().getTextArea().redo();
+        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+            textModifiable.redo();
+        }
     }
 
     @FXML
     private void copy() {
-        fileTabs.getCurrentFileTab().getTextArea().copy();
+        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+            textModifiable.copy();
+        }
     }
 
     @FXML
     private void cut() {
-        fileTabs.getCurrentFileTab().getTextArea().cut();
+        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+            textModifiable.cut();
+        }
     }
 
     @FXML
     private void paste() {
-        fileTabs.getCurrentFileTab().getTextArea().paste();
+        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+            textModifiable.paste();
+        }
     }
 
     @FXML
     private void selectAll() {
-        fileTabs.getCurrentFileTab().getTextArea().selectAll();
+        if (fileTabs.getCurrentContentTab() instanceof TextModifiable textModifiable) {
+            textModifiable.selectAll();
+        }
     }
 
     @FXML
     private void shiftRight() {
-        TextUtil.shift(fileTabs.getCurrentFileTab().getTextArea(), 1);
+        if (fileTabs.getCurrentContentTab() instanceof FileTab fileTab) {
+            TextUtil.shift(fileTab.getTextArea(), 1);
+        }
     }
 
     @FXML
     private void shiftLeft() {
-        TextUtil.shift(fileTabs.getCurrentFileTab().getTextArea(), -1);
+        if (fileTabs.getCurrentContentTab() instanceof FileTab fileTab) {
+            TextUtil.shift(fileTab.getTextArea(), -1);
+        }
     }
 
     // @TODO: Implement find, replace methods.
@@ -218,7 +259,7 @@ public class MainController {
     private void find() {
     }
 
-    public FileTabPane getFileTabPane() {
+    public ContentTabPane getFileTabPane() {
         return fileTabs;
     }
 }
