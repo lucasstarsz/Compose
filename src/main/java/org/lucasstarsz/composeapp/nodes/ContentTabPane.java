@@ -24,11 +24,11 @@ public class ContentTabPane extends TabPane {
         });
     }
 
-    public void initNewTabTab() {
+    public void initNewFileTab() {
         Tab tab = new Tab("+");
         tab.setClosable(false);
         tab.setTooltip(new Tooltip("Creates a new file."));
-        tab.setOnSelectionChanged(event -> addNewTab());
+        tab.setOnSelectionChanged(event -> addNewFileTab());
         this.getTabs().add(tab);
     }
 
@@ -76,7 +76,7 @@ public class ContentTabPane extends TabPane {
         }
     }
 
-    public void addTab(File file) {
+    public void addContentTab(File file) {
         switch (FileUtil.validateFile(file)) {
             case VALID -> {
                 FileTab tab = new FileTab(file);
@@ -96,7 +96,7 @@ public class ContentTabPane extends TabPane {
         }
     }
 
-    public void addNewTab() {
+    public void addNewFileTab() {
         FileTab tab = new FileTab();
         this.getTabs().add(this.getTabs().size() - 1, tab);
         this.getSelectionModel().select(tab);
