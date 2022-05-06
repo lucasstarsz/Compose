@@ -5,7 +5,7 @@
     -fx-focus-color: #003b6a;
     -fx-faint-focus-color: #004275;
 
-    -fx-default-button: #001c30;
+    -fx-default-button: #002742;
 }
 
 /* Tabs */
@@ -110,7 +110,7 @@ ComposeArea .caret {
 
 .scroll-bar:horizontal .thumb,
 .scroll-bar:vertical .thumb {
-    -fx-background-color: -fx-accent;
+    -fx-background-color: -fx-default-button;
     -fx-border-style: none;
 }
 
