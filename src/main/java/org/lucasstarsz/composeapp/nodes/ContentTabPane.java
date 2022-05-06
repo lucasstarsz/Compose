@@ -1,27 +1,25 @@
 package org.lucasstarsz.composeapp.nodes;
 
+import java.io.File;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.Tooltip;
-import org.lucasstarsz.composeapp.core.ComposeApp;
 import org.lucasstarsz.composeapp.user.Preferences;
 import org.lucasstarsz.composeapp.utils.Defaults;
 import org.lucasstarsz.composeapp.utils.DialogUtil;
 import org.lucasstarsz.composeapp.utils.FileUtil;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.List;
-import java.util.stream.Collectors;
+public class ContentTabPane extends TabPane {
 
-public class FileTabPane extends TabPane {
-
-    public FileTabPane() {
+    public ContentTabPane() {
         super();
         this.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
-            if (this.getFileTabs().size() > 1) {
-                this.getFileTabs().get(Math.max(newValue.intValue() - 1, 0)).getTextArea().requestFocus();
+            if (this.getContentTabs().size() > 1) {
+                this.getContentTabs().get(Math.max(newValue.intValue() - 1, 0)).getContent().requestFocus();
             }
         });
     }
@@ -34,22 +32,25 @@ public class FileTabPane extends TabPane {
         this.getTabs().add(tab);
     }
 
-    public FileTab getCurrentFileTab() {
-        return (FileTab) this.getSelectionModel().getSelectedItem();
+    public ContentTab getCurrentContentTab() {
+        return (ContentTab) this.getSelectionModel().getSelectedItem();
     }
 
-    public List<FileTab> getFileTabs() {
+    public List<ContentTab> getContentTabs() {
         return getTabs().stream()
-                .filter(tab -> tab instanceof FileTab)
-                .map(tab -> (FileTab) tab)
+                .filter(tab -> tab instanceof ContentTab)
+                .map(tab -> (ContentTab) tab)
                 .collect(Collectors.toList());
     }
 
     public boolean closeAllTabs() {
         try {
-            getFileTabs().forEach(tab -> {
-                if (tab.shouldClose()) getTabs().remove(tab);
-                else throw new BreakException();
+            getContentTabs().forEach(tab -> {
+                if (tab.shouldClose()) {
+                    getTabs().remove(tab);
+                } else {
+                    throw new BreakException();
+                }
             });
         } catch (BreakException ignored) {
             return false;
@@ -61,15 +62,17 @@ public class FileTabPane extends TabPane {
     }
 
     public void closeCurrentTab() {
-        FileTab currentFileTab = getCurrentFileTab();
+        ContentTab currentFileTab = getCurrentContentTab();
         if (currentFileTab.shouldClose()) {
             getTabs().remove(currentFileTab);
         }
     }
 
     public void closeTab(int idx) {
-        if (((FileTab) getTabs().get(idx)).shouldClose()) {
-            getTabs().remove(idx);
+        if (getTabs().get(idx) instanceof ContentTab contentTab) {
+            if (contentTab.shouldClose()) {
+                getTabs().remove(idx);
+            }
         }
     }
 
@@ -103,20 +106,13 @@ public class FileTabPane extends TabPane {
 
     public void changeStyle(Preferences preferences) {
         String style = generateStyle(preferences);
-        if (getTabs().size() > 50) {
-            getTabs().parallelStream().forEach(tab -> {
-                if (tab instanceof FileTab) {
-                    tab.getContent().setStyle(style);
-                    ((FileTab) tab).getTextArea().setWrapText(preferences.isWrapText());
+        for (Tab tab : getTabs()) {
+            if (tab instanceof ContentTab contentTab) {
+                contentTab.getContent().setStyle(style);
+                if (tab instanceof FileTab fileTab) {
+                    fileTab.getTextArea().setWrapText(preferences.isWrapText());
                 }
-            });
-        } else {
-            getTabs().forEach(tab -> {
-                if (tab instanceof FileTab) {
-                    tab.getContent().setStyle(style);
-                    ((FileTab) tab).getTextArea().setWrapText(preferences.isWrapText());
-                }
-            });
+            }
         }
     }
 

@@ -1,14 +1,14 @@
 package org.lucasstarsz.composeapp.user;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.lucasstarsz.composeapp.core.ComposeApp;
 import org.lucasstarsz.composeapp.utils.Defaults;
 import org.lucasstarsz.composeapp.utils.PreferencesUtil;
-
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Properties;
 
 // TODO: work with preferences
 public class Preferences {

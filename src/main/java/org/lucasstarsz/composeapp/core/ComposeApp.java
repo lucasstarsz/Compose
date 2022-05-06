@@ -1,5 +1,15 @@
 package org.lucasstarsz.composeapp.core;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.Event;
@@ -13,16 +23,6 @@ import org.lucasstarsz.composeapp.core.controllers.MainController;
 import org.lucasstarsz.composeapp.user.Preferences;
 import org.lucasstarsz.composeapp.utils.Defaults;
 import org.lucasstarsz.composeapp.utils.DialogUtil;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class ComposeApp extends Application {
 

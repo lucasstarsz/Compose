@@ -1,5 +1,9 @@
 package org.lucasstarsz.composeapp.core.controllers;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -10,22 +14,23 @@ import org.lucasstarsz.composeapp.core.ComposeApp;
 import org.lucasstarsz.composeapp.user.Preferences;
 import org.lucasstarsz.composeapp.utils.Defaults;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-
 public class SettingsController {
 
-    @FXML private ComboBox<String> themeSelector;
+    @FXML
+    private ComboBox<String> themeSelector;
 
-    @FXML private ComboBox<String> fontSelector;
-    @FXML private Label fontSizeText;
-    @FXML private TextField fontSizeField;
+    @FXML
+    private ComboBox<String> fontSelector;
+    @FXML
+    private Label fontSizeText;
+    @FXML
+    private TextField fontSizeField;
 
 //    @FXML private Label tabSizeText;
 //    @FXML private TextField tabSizeField;
 
-    @FXML private CheckBox wrapTextSelector;
+    @FXML
+    private CheckBox wrapTextSelector;
 
     private final Map<String, String> themes = Map.of(
             "Light", Defaults.lightStylePath,

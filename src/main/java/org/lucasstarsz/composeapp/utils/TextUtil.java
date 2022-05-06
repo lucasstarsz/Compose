@@ -49,12 +49,16 @@ public class TextUtil {
             if (shiftAmount > 0) {
                 lines[i] = "\t".repeat(shiftAmount) + lines[i];
                 tabMovementCount += shiftAmount;
-                if (i == 0) firstTabMovement += shiftAmount;
+                if (i == 0) {
+                    firstTabMovement += shiftAmount;
+                }
             } else {
                 int ltcount = Math.min(Math.abs(shiftAmount), getLeadingTabCount(lines[i]));
                 lines[i] = lines[i].substring(ltcount);
                 tabMovementCount -= ltcount;
-                if (i == 0) firstTabMovement -= ltcount;
+                if (i == 0) {
+                    firstTabMovement -= ltcount;
+                }
             }
         }
 
@@ -117,8 +121,11 @@ public class TextUtil {
         int count = 0;
 
         for (char c : s.toCharArray()) {
-            if (c == '\t') count++;
-            else break;
+            if (c == '\t') {
+                count++;
+            } else {
+                break;
+            }
         }
 
         return count;
@@ -141,8 +148,9 @@ public class TextUtil {
      * @return the indexes of the first line, and the indexes of the last line.
      */
     public static int[] getSelectedLines(ComposeArea tx) {
-        if (tx.getSelectedText().isEmpty())
+        if (tx.getSelectedText().isEmpty()) {
             throw new IllegalStateException("The text area doesn't have anything selected.");
+        }
 
         int[] front = getLineAtPosition(tx, tx.getSelection().getStart());
         int[] back = getLineAtPosition(tx, tx.getSelection().getEnd());
@@ -165,14 +173,18 @@ public class TextUtil {
         TwoDimensional.Position pos = tx.offsetToPosition(position, TwoDimensional.Bias.Backward);
 
         int length = (pos.getMinor() - position < 0 ? pos.getMinor() : pos.getMinor() - position);
-        if (!tx.getText().contains("\n")) length = tx.getLength();
+        if (!tx.getText().contains("\n")) {
+            length = tx.getLength();
+        }
 
         int start = tx.getText().lastIndexOf('\n', position) + 1;
 
         if (tx.getLength() > start + length && tx.getText().charAt(start + length) != '\n') {
             length = tx.getText().indexOf('\n', start) - start;
         }
-        if (length < 0) length = tx.getLength() - start;
+        if (length < 0) {
+            length = tx.getLength() - start;
+        }
 
         return new int[]{start, start + length};
     }

@@ -1,28 +1,22 @@
 package org.lucasstarsz.composeapp.nodes;
 
-import javafx.scene.control.Tab;
+import java.io.File;
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import org.fxmisc.flowless.VirtualizedScrollPane;
 import org.lucasstarsz.composeapp.core.ComposeApp;
-import org.lucasstarsz.composeapp.utils.Defaults;
 import org.lucasstarsz.composeapp.utils.DialogUtil;
 import org.lucasstarsz.composeapp.utils.FileUtil;
 import org.lucasstarsz.composeapp.utils.TextUtil;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.concurrent.ExecutionException;
+public class FileTab extends ContentTab implements TextModifiable {
+    private VirtualizedScrollPane<ComposeArea> scrollPane;
+    private ComposeArea textArea;
 
-public class FileTab extends Tab {
-    private final VirtualizedScrollPane<ComposeArea> scrollPane;
-    private final ComposeArea textArea;
-
-    private File currentFile;
     private String originalText;
-
-    private boolean unsavedChanges;
     private boolean switchingFiles;
 
     public FileTab() {
@@ -30,51 +24,31 @@ public class FileTab extends Tab {
     }
 
     private FileTab(String newFile) {
-        switchingFiles = true;
-        currentFile = new File(newFile);
-        originalText = "";
-
-        textArea = new ComposeArea();
-        scrollPane = new VirtualizedScrollPane<>(textArea);
-        this.setContent(scrollPane);
-
-        setup();
-        switchingFiles = false;
+        super(newFile);
     }
 
     public FileTab(File file) {
-        switchingFiles = true;
-        originalText = "";
+        super(file);
+    }
 
+    @Override
+    public void setupTabContents(File file) {
+        originalText = "";
         textArea = new ComposeArea();
         scrollPane = new VirtualizedScrollPane<>(textArea);
         this.setContent(scrollPane);
 
-        setCurrentFile(file);
-        setup();
-        switchingFiles = false;
-    }
-
-    private void setup() {
-        this.setText(currentFile.getName());
 
         textArea.replaceText(originalText);
-
-        this.setOnCloseRequest(event -> {
-            if (shouldClose()) {
-                this.getTabPane().getTabs().remove(this);
-            }
-        });
-
         textArea.textProperty().addListener((observable, oldValue, newValue) -> {
             if (unsavedChanges) {
                 if (!textArea.isUndoAvailable() || textArea.getText().equals(originalText)) {
                     unsavedChanges = false;
-                    this.setText(currentFile.getName());
+                    this.setText(getCurrentFile().getName());
                 }
             } else if (!switchingFiles) {
                 unsavedChanges = true;
-                this.setText(currentFile.getName() + '*');
+                this.setText(getCurrentFile().getName() + '*');
             }
         });
 
@@ -95,57 +69,27 @@ public class FileTab extends Tab {
         });
     }
 
-    public void setCurrentFile(File file) {
-        switch (FileUtil.validateFile(file)) {
-            case VALID -> {
-                if (!unsavedChanges || DialogUtil.confirmUnsavedChanges(this, "open " + file.getName())) {
-                    try {
-                        switchingFiles = true;
+    @Override
+    public void updateTabContents(File file) {
+        try {
+            switchingFiles = true;
+            originalText = ComposeApp.readFileContents(file).get();
+            switchingFiles = false;
 
-                        originalText = ComposeApp.readFileContents(file).get();
-
-                        currentFile = file;
-                        this.setText(currentFile.getName());
-                        textArea.replaceText(originalText);
-                        textArea.getUndoManager().forgetHistory();
-
-                        unsavedChanges = false;
-                        switchingFiles = false;
-                    } catch (InterruptedException | ExecutionException ignored) {
-                    }
-                }
-            }
-            case DOES_NOT_EXIST -> DialogUtil.doesNotExist(file.getAbsolutePath());
-            case FAILED_TO_OPEN -> DialogUtil.cantOpenFile(file);
-            case TOO_BIG -> DialogUtil.fileTooBig(file, Defaults.readableFileSizeLimit);
+            textArea.replaceText(originalText);
+            textArea.getUndoManager().forgetHistory();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    public void saveFile() throws IOException {
-        if (Files.exists(currentFile.toPath())) {
-            FileUtil.write(textArea, currentFile);
-            System.out.println("Saved: " + currentFile.getAbsolutePath());
-
-            // if file is the same, avoid replacement
-            if (this.getText().substring(0, this.getText().length() - 1).equals(currentFile.getName())) {
-                this.setText(currentFile.getName());
-
-                unsavedChanges = false;
-                switchingFiles = false;
-            } else {
-                setCurrentFile(currentFile);
-            }
+    @Override
+    public File writeTabContents(File file, boolean saveAs) throws IOException {
+        if (saveAs) {
+            return FileUtil.trySaveFileAs(textArea, file);
         } else {
-            saveFileAs();
-        }
-    }
-
-    public void saveFileAs() throws IOException {
-        File f = FileUtil.trySaveFileAs(textArea, currentFile);
-        if (f != null) {
-            String oldFileName = currentFile.getAbsolutePath();
-            setCurrentFile(f);
-            System.out.println("Saved: " + oldFileName + " as: " + f.getAbsolutePath());
+            FileUtil.write(textArea, file);
+            return null;
         }
     }
 
@@ -165,15 +109,37 @@ public class FileTab extends Tab {
         return scrollPane;
     }
 
+    @Override
+    public void undo() {
+        textArea.undo();
+    }
+
+    @Override
+    public void redo() {
+        textArea.redo();
+    }
+
+    @Override
+    public void copy() {
+        textArea.copy();
+    }
+
+    @Override
+    public void cut() {
+        textArea.cut();
+    }
+
+    @Override
+    public void paste() {
+        textArea.paste();
+    }
+
+    @Override
+    public void selectAll() {
+        textArea.selectAll();
+    }
+
     public ComposeArea getTextArea() {
         return textArea;
-    }
-
-    public File getCurrentFile() {
-        return currentFile;
-    }
-
-    public boolean hasUnsavedChanges() {
-        return unsavedChanges;
     }
 }
